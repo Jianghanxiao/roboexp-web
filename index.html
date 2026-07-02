@@ -1,449 +1,484 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <meta name="description"
-    content="RoboEXP: Action-Conditioned Scene Graph via Interactive Exploration for Robotic Manipulation">
-  <meta name="keywords" content="Interactive Exploration, Action-Conditioned Scene Graph">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RoboEXP</title>
+  <meta name="description"
+    content="RoboEXP: Action-Conditioned Scene Graph via Interactive Exploration for Robotic Manipulation.">
+  <meta name="keywords"
+    content="robotics, interactive exploration, action-conditioned scene graph, robotic manipulation, RoboEXP">
+  <meta name="theme-color" content="#f4f0e8">
 
-  <script>
+  <meta property="og:title" content="RoboEXP — Interactive Exploration for Robotic Manipulation">
+  <meta property="og:description"
+    content="Robots autonomously explore real-world scenes and build actionable 3D scene graphs.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="media/figures/teaser_wide.png">
 
-    function updateInteractive() {
-      var task = document.getElementById("interative-menu").value;
+  <title>RoboEXP — Action-Conditioned Scene Graph via Interactive Exploration</title>
 
-      console.log("interactive", task)
-
-      // if task does not contain the string "towel"
-      if (task.indexOf("towel") == -1) {
-        var video = document.getElementById("interactive-video");
-        video.src = "media/videos/" +
-          task +
-          ".mp4"
-        video.play();
-
-        var html = document.getElementById("interactive-html-1");
-        html.src = "media/interactive/" +
-          task +
-          ".html"
-
-        // hide the second iframe container
-        var iframeContainer2 = document.getElementById("second-iframe-container");
-        iframeContainer2.style.display = "none";
-      } else {
-        var video = document.getElementById("interactive-video");
-        video.src = "media/videos/hang-towel.mp4"
-        video.play();
-
-        var html1 = document.getElementById("interactive-html-1");
-        html1.src = "media/interactive/hang-towel-1.html"
-
-        // show and set the source for the second iframe
-        var html2 = document.getElementById("interactive-html-2");
-        html2.src = "media/interactive/hang-towel-2.html"
-
-        // show the second iframe container
-        var iframeContainer2 = document.getElementById("second-iframe-container");
-        iframeContainer2.style.display = "block";
-      }
-    }
-
-
-
-  </script>
-
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
-
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="icon" type="image/svg+xml" href="./static/images/roboexp-favicon.svg">
   <link rel="stylesheet" href="./static/css/index.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+  <script defer src="./static/js/index.js"></script>
 </head>
 
-<body onload="updateInteractive();">
+<body class="project-page">
+  <a class="skip-link" href="#main">Skip to main content</a>
 
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container is-fullhd">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">RoboEXP: Action-Conditioned Scene Graph via Interactive Exploration
-              for Robotic Manipulation</h1>
-            <div class="is-size-5 publication-authors">
-              <span class="author-block">
-                <a target="_blank" href="https://jianghanxiao.github.io/">Hanxiao Jiang</a><sup>1,2</sup>,
+  <header class="project-nav">
+    <div class="project-nav__inner">
+      <a class="project-nav__brand" href="https://jianghanxiao.github.io/" aria-label="Hanxiao Jiang homepage">
+        <span class="project-nav__mark">HJ</span>
+        <span class="project-nav__owner">Hanxiao Jiang</span>
+      </a>
+
+      <a class="project-nav__title" href="#header">RoboEXP</a>
+
+      <nav class="project-nav__links" aria-label="Project sections">
+        <a href="#exploration">Results</a>
+        <a href="#method">Method</a>
+        <a href="#adaptation">Adaptation</a>
+        <a href="#video">Video</a>
+      </nav>
+
+      <a class="project-nav__repo" target="_blank" rel="noopener noreferrer"
+        href="https://github.com/Jianghanxiao/RoboEXP">
+        <span class="repo-mark" aria-hidden="true">⌘</span>
+        <span>GitHub</span>
+        <span data-github-stars>Open source</span>
+        <b aria-hidden="true">↗</b>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="hero-stack" id="header">
+      <section class="project-hero" aria-labelledby="project-title">
+        <div class="project-hero__grid">
+          <div class="project-hero__copy">
+            <div class="project-hero__eyebrow">CoRL 2024 <span></span> Research Project</div>
+
+            <h1 id="project-title" class="publication-title">
+              <span class="publication-title__line publication-title__line--brand">
+                <span class="publication-title__name">RoboEXP:</span>
               </span>
-              <span class="author-block">
-                <a target="_blank" href="https://binghao-huang.github.io/">Binghao Huang</a><sup>1</sup>,
+              <span class="publication-title__line">
+                <span class="publication-title__term">Action-Conditioned</span> Scene Graph
               </span>
-              <span class="author-block">
-                <a target="_blank" href="https://warshallrho.github.io/">Ruihai Wu</a><sup>4</sup>,
-              </span>
-              <span class="author-block">
-                <a target="_blank" href="https://sg.linkedin.com/in/zhuoran-li-david">Zhuoran Li</a><sup>5</sup>,
-              </span>
-              <span class="author-block">
-                <a target="_blank" href="https://www.gargshubham.com/">Shubham Garg</a><sup>3</sup>,
-              </span>
-              <span class="author-block">
-                <a target="_blank" href="https://www.amazon.science/author/hooshang-nayyeri">Hooshang
-                  Nayyeri</a><sup>3</sup>,
-              </span>
-              <span class="author-block">
-                <a target="_blank" href="https://shenlong.web.illinois.edu/">Shenlong Wang</a><sup>2</sup>,
-              </span>
-              <span class="author-block">
-                <a target="_blank" href="https://yunzhuli.github.io/">Yunzhu Li</a><sup>1</sup>
-              </span>
+              <span class="publication-title__line">via Interactive Exploration for</span>
+              <span class="publication-title__line">Robotic Manipulation</span>
+            </h1>
+
+            <div class="publication-authors">
+              <span class="author-block"><a target="_blank" rel="noopener noreferrer"
+                  href="https://jianghanxiao.github.io/">Hanxiao Jiang</a><sup>1,2</sup>,</span>
+              <span class="author-block"><a target="_blank" rel="noopener noreferrer"
+                  href="https://binghao-huang.github.io/">Binghao Huang</a><sup>1</sup>,</span>
+              <span class="author-block"><a target="_blank" rel="noopener noreferrer"
+                  href="https://warshallrho.github.io/">Ruihai Wu</a><sup>4</sup>,</span>
+              <span class="author-block"><a target="_blank" rel="noopener noreferrer"
+                  href="https://sg.linkedin.com/in/zhuoran-li-david">Zhuoran Li</a><sup>5</sup>,</span>
+              <span class="author-block"><a target="_blank" rel="noopener noreferrer"
+                  href="https://www.gargshubham.com/">Shubham Garg</a><sup>3</sup>,</span>
+              <span class="author-block"><a target="_blank" rel="noopener noreferrer"
+                  href="https://www.amazon.science/author/hooshang-nayyeri">Hooshang Nayyeri</a><sup>3</sup>,</span>
+              <span class="author-block"><a target="_blank" rel="noopener noreferrer"
+                  href="https://shenlong.web.illinois.edu/">Shenlong Wang</a><sup>2</sup>,</span>
+              <span class="author-block"><a target="_blank" rel="noopener noreferrer"
+                  href="https://yunzhuli.github.io/">Yunzhu Li</a><sup>1</sup></span>
             </div>
 
-            <div class="is-size-5 publication-authors">
-              <span class="author-block"><sup>1</sup>Columbia University,</span>
-              <span class="author-block"><sup>2</sup>University of Illinois Urbana-Champaign,</span>
-              <span class="author-block"><sup>3</sup>Amazon,</span>
-              <span class="author-block"><sup>4</sup>Peking University,</span>
-              <span class="author-block"><sup>5</sup>National University of Singapore</span>
+            <div class="publication-authors publication-affiliations">
+              <span><sup>1</sup>Columbia University</span>
+              <span><sup>2</sup>University of Illinois Urbana-Champaign</span>
+              <span><sup>3</sup>Amazon</span>
+              <span><sup>4</sup>Peking University</span>
+              <span><sup>5</sup>National University of Singapore</span>
             </div>
 
-            <div class="column has-text-centered">
-              <div class="publication-links">
-                <!-- PDF Link. -->
-                <span class="link-block">
-                  <a target="_blank" href="roboexp.pdf" class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                    </span>
-                    <span>Paper</span>
-                  </a>
-                </span>
+            <div class="publication-links" aria-label="Project resources">
+              <a target="_blank" href="roboexp.pdf" class="resource-button resource-button--primary">
+                <span>Paper</span><b aria-hidden="true">↗</b>
+              </a>
+              <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/2402.15487"
+                class="resource-button">
+                <span>arXiv</span><b aria-hidden="true">↗</b>
+              </a>
+              <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=qaSbggX_tXU"
+                class="resource-button">
+                <span>Video</span><b aria-hidden="true">↗</b>
+              </a>
+              <a target="_blank" rel="noopener noreferrer" href="https://github.com/Jianghanxiao/RoboEXP"
+                class="resource-button">
+                <span>Code</span><b aria-hidden="true">↗</b>
+              </a>
+              <a target="_blank" rel="noopener noreferrer"
+                href="https://colab.research.google.com/drive/1xcteSyorfbiSzwHtZ77X4v6AlKcUyynK?usp=sharing"
+                class="resource-button">
+                <span>Colab</span><b aria-hidden="true">↗</b>
+              </a>
+            </div>
+          </div>
 
-                <!-- Arxiv Link. -->
-                <span class="link-block">
-                  <a target="_blank" href="https://arxiv.org/abs/2402.15487" class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fas fa-file"></i>
-                    </span>
-                    <span>ArXiv</span>
-                  </a>
-                </span>
+          <aside class="robot-specimen" aria-label="RoboEXP exploration preview">
+            <div class="robot-specimen__header">
+              <span>Exploration specimen / 01</span>
+              <i></i>
+            </div>
 
-                <!-- Video Link. -->
-                <span class="link-block">
-                  <a target="_blank" href="https://www.youtube.com/watch?v=qaSbggX_tXU"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-youtube"></i>
-                    </span>
-                    <span>Video</span>
-                  </a>
-                </span>
-
-                <!-- Code Link. -->
-                <span class="link-block">
-                  <a target="_blank" href="https://github.com/Jianghanxiao/RoboEXP"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                  </a>
-                </span>
-
-                <!-- Colab Link. -->
-                <span class="link-block">
-                  <a target="_blank" href="https://colab.research.google.com/drive/1xcteSyorfbiSzwHtZ77X4v6AlKcUyynK?usp=sharing"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <img class="icon" src="static/images/colab.png" alt="Icon">
-                    </span>
-                    <span>Colab</span>
-                  </a>
-                </span>
+            <div class="robot-specimen__media">
+              <video autoplay muted loop playsinline preload="metadata" poster="media/figures/teaser_wide.png"
+                aria-label="RoboEXP explores a real-world table scene">
+                <source src="media/videos/teaser_video.mp4" type="video/mp4">
+              </video>
+              <div class="scene-graph-overlay" aria-hidden="true">
+                <span></span><span></span><span></span><span></span>
               </div>
             </div>
+
+            <div class="robot-specimen__legend" aria-hidden="true">
+              <span>Objects</span>
+              <span>Relations</span>
+              <span>Actions</span>
+              <span>Memory</span>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <aside class="project-update">
+        <div>
+          RoboEXP turns physical interaction into an <strong>Action-Conditioned Scene Graph</strong>, enabling robots
+          to reason about what is inside, behind, and beneath a scene before acting.
+        </div>
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/Jianghanxiao/RoboEXP">
+          Explore code <span aria-hidden="true">↗</span>
+        </a>
+      </aside>
+    </div>
+
+    <section class="motion-atlas" id="exploration" aria-labelledby="atlas-title">
+      <header class="motion-atlas__header">
+        <div>
+          <span class="section-index">Exploration Atlas / 6 scenes</span>
+          <h2 id="atlas-title">Explore. Remember. Manipulate.</h2>
+        </div>
+        <div class="motion-atlas__tags" aria-hidden="true">
+          <span>Occlusion</span><span>Recursion</span><span>Intervention</span><span>Zero-shot</span>
+        </div>
+      </header>
+
+      <div class="project-showreel" data-carousel>
+        <div class="showreel-viewport" data-carousel-track>
+          <div class="showreel-track">
+            <article class="motion-card">
+              <video class="lazy-video" muted loop playsinline preload="none" controls data-autoplay
+                data-src="media/videos/exp-exp.mp4" aria-label="Iterative exploration"></video>
+              <div class="media-description"><span>01</span>
+                <p>Iterative exploration</p>
+              </div>
+            </article>
+
+            <article class="motion-card">
+              <video class="lazy-video" muted loop playsinline preload="none" controls data-autoplay
+                data-src="media/videos/recur-1.mp4" aria-label="Recursive discovery"></video>
+              <div class="media-description"><span>02</span>
+                <p>Recursive discovery</p>
+              </div>
+            </article>
+
+            <article class="motion-card">
+              <video class="lazy-video" muted loop playsinline preload="none" controls data-autoplay
+                data-src="media/videos/obstruction.mp4" aria-label="Obstruction reasoning"></video>
+              <div class="media-description"><span>03</span>
+                <p>Obstruction reasoning</p>
+              </div>
+            </article>
+
+            <article class="motion-card">
+              <video class="lazy-video" muted loop playsinline preload="none" controls data-autoplay
+                data-src="media/videos/recur-2.mp4" aria-label="Multi-stage exploration"></video>
+              <div class="media-description"><span>04</span>
+                <p>Multi-stage exploration</p>
+              </div>
+            </article>
+
+            <article class="motion-card">
+              <video class="lazy-video" muted loop playsinline preload="none" controls data-autoplay
+                data-src="media/videos/intervention_1.mp4" aria-label="Human intervention result"></video>
+              <div class="media-description"><span>05</span>
+                <p>Scene intervention</p>
+              </div>
+            </article>
+
+            <article class="motion-card">
+              <video class="lazy-video" muted loop playsinline preload="none" controls data-autoplay
+                data-src="media/videos/intervention_2.mp4" aria-label="Scene update result"></video>
+              <div class="media-description"><span>06</span>
+                <p>Targeted re-exploration</p>
+              </div>
+            </article>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="hero teaser" style="position: relative; top: -30px">
-    <div class="container is-fullhd">
-      <div class="hero-body">
-        <div class="container">
-          <div class="columns is-vcentered  is-centered">
-            <video id="teaser_video" autoplay muted loop preload height="80%" width="80%">
-              <source src="media/videos/teaser_video.mp4" type="video/mp4">
-          </div>
-          <h2 class="subtitle has-text-centered" style="position: relative; top: -20px">
-            <span class="dperact">RoboEXP</span> constructs the <b>Action-Conditioned Scene Graph (ACSG)</b> during the
-            <b>interactive exploration</b> process, <br>which is utilized for the robot to complete the downstream task
-            of making the table.
+        <button class="carousel-arrow carousel-arrow--prev" type="button" data-carousel-prev
+          aria-label="Previous exploration examples">←</button>
+        <button class="carousel-arrow carousel-arrow--next" type="button" data-carousel-next
+          aria-label="Next exploration examples">→</button>
+
+        <div class="showreel-footer">
+          <span data-carousel-status>01–03 / 06</span>
+          <div class="showreel-rule"><i data-carousel-progress></i></div>
+          <span>Drag or use arrows</span>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
+    <p class="project-tagline">
+      RoboEXP can <strong>zero-shot explore</strong> unseen real-world environments, reveal hidden structure through
+      interaction, and reuse the resulting memory for downstream manipulation.
+    </p>
 
-  <section class="hero is-light is-small" style="position: relative; top: -50px">
-    <div class="hero-body">
-      <div class="container">
-        <div id="results-carousel" class="carousel results-carousel">
-          <div class="item">
-            <video poster="" autoplay muted loop preload height="100%">
-              <source src="media/videos/exp-exp.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="item">
-            <video poster="" autoplay muted loop preload height="100%">
-              <source src="media/videos/recur-1.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="item">
-            <video poster="" autoplay muted loop preload height="100%">
-              <source src="media/videos/obstruction.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="item">
-            <video poster="" autoplay muted loop preload height="100%">
-              <source src="media/videos/recur-2.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="item">
-            <video poster="" autoplay muted loop height="100%">
-              <source src="media/videos/intervention_2.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="item">
-            <video poster="" autoplay muted loop height="100%">
-              <source src="media/videos/intervention_1.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <h2 class="subtitle has-text-centered" style="position: relative; top: -50px">
-    </br>
-    RoboEXP can <b>zero-shot explore</b> various real-world settings, <br> demonstrating its effectiveness in
-    <b>exploring</b> and <b>modeling</b> environments it has never seen before.
-  </h2>
+    <section class="chapter-card chapter-card--explore" id="overview">
+      <div class="chapter-card__tab"><span>01</span> Discover the Scene</div>
 
-
-  <section class="section" style="position: relative; top: -50px">
-    <div class="container is-max-desktop">
-      <!-- Abstract. -->
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified">
+      <section class="project-section abstract-section" data-section="01 / Interactive Exploration">
+        <div class="abstract-grid">
+          <div>
+            <h2>Observe less. Discover more.</h2>
+          </div>
+          <div class="content">
             <p>
-              We introduce the novel task of interactive scene exploration, wherein robots autonomously explore environments and produce an action-conditioned scene graph (ACSG) that captures the structure of the underlying environment. The ACSG accounts for both low-level information (geometry and semantics) and high-level information (action-conditioned relationships between different entities) in the scene. To this end, we present the Robotic Exploration (RoboEXP) system, which incorporates the Large Multimodal Model (LMM) and an explicit memory design to enhance our system's capabilities. The robot reasons about what and how to explore an object, accumulating new information through the interaction process and incrementally constructing the ACSG.
-              Leveraging the constructed ACSG, we illustrate the effectiveness and efficiency of our RoboEXP system in facilitating a wide range of real-world manipulation tasks involving rigid, articulated objects, nested objects, and deformable objects.
+              We introduce the task of <strong>interactive scene exploration</strong>, where a robot autonomously
+              explores an environment and produces an Action-Conditioned Scene Graph (ACSG) that captures its underlying
+              structure. Unlike a static reconstruction, the ACSG records both low-level geometry and semantics and
+              high-level relationships that only become visible through physical interaction.
+            </p>
+            <p>
+              RoboEXP combines a Large Multimodal Model with an explicit memory design. It reasons about what to explore,
+              how to interact, and when new evidence should update its model of the scene.
             </p>
           </div>
         </div>
-      </div>
-      <!--/ Abstract. -->
+      </section>
 
-    </div>
+      <section class="project-section overview-section" data-section="02 / System in Action">
+        <header class="project-section__header">
+          <h2>Explore first. Act with context.</h2>
+          <p>Interactive exploration constructs the ACSG; the same graph then supports the downstream table-setting
+            task.</p>
+        </header>
 
-    <!-- Paper video. -->
-    <br>
-    <br>
+        <figure class="instrument-figure">
+          <div class="instrument-figure__topbar">
+            <span>RoboEXP / real-world run</span>
+            <span>RGB-D → ACSG → manipulation</span>
+          </div>
+          <video class="lazy-video" muted loop playsinline preload="none" controls data-autoplay
+            data-src="media/videos/teaser_video.mp4" poster="media/figures/teaser_wide.png"
+            aria-label="RoboEXP system overview"></video>
+          <figcaption>
+            The robot incrementally uncovers objects and relations, accumulates an actionable scene memory, and plans
+            with that memory instead of treating every observation in isolation.
+          </figcaption>
+        </figure>
+      </section>
+    </section>
 
-    <div class="container is-max-widescreen">
+    <section class="chapter-card chapter-card--method" id="method">
+      <div class="chapter-card__tab"><span>02</span> Construct the ACSG</div>
 
-      <div class="rows">
-        <h2 class="title is-3">Video</h2>
+      <section class="project-section framework-section" data-section="03 / Architecture">
+        <header class="project-section__header">
+          <h2>RoboEXP</h2>
+          <p>A closed loop between perception, explicit memory, decision-making, and physical action.</p>
+        </header>
+
+        <figure class="framework-figure">
+          <img src="media/figures/pipeline.png"
+            alt="RoboEXP pipeline with perception, memory, decision-making, and action modules" loading="lazy">
+          <figcaption class="representation-tags">
+            <span>Perception</span>
+            <span>Explicit memory</span>
+            <span>Decision-making</span>
+            <span>Action</span>
+          </figcaption>
+        </figure>
+
+        <div class="content framework-copy">
+          <p>
+            Starting from RGB-D observations, vision foundation models ground objects while the memory module fuses
+            observations into the ACSG. A decision-making module reasons over that graph to propose the next exploration
+            plan, and the action module executes it. Every interaction returns new evidence to the same structured
+            memory.
+          </p>
+        </div>
+      </section>
+
+      <section class="project-section memory-section" data-section="04 / Action-Conditioned Memory">
+        <header class="project-section__header">
+          <h2>Two views of one evolving scene.</h2>
+          <p>The high-level graph remains actionable while low-level memory anchors its nodes and relationships in 3D.
+          </p>
+        </header>
+
+        <div class="memory-workbench">
+          <article class="memory-panel">
+            <div class="memory-panel__header">
+              <div><span>High-level memory</span>
+                <h3>ACSG construction</h3>
+              </div>
+              <i>Dynamic</i>
+            </div>
+            <video class="lazy-video" muted loop playsinline preload="none" controls data-autoplay
+              data-src="media/videos/sg_final.mp4" aria-label="RoboEXP builds the Action-Conditioned Scene Graph"></video>
+            <p>Objects and action-conditioned relationships are added as the robot explores.</p>
+          </article>
+
+          <article class="memory-panel">
+            <div class="memory-panel__header">
+              <div><span>Low-level memory</span>
+                <h3>3D scene state</h3>
+              </div>
+              <i>Interactive</i>
+            </div>
+            <div class="interactive-frame" data-interactive-frame>
+              <img src="media/figures/sg.png" alt="RoboEXP low-level scene memory" loading="lazy">
+              <div class="interactive-overlay">
+                <button type="button" data-load-interactive>
+                  Load 3D graph <span aria-hidden="true">↗</span>
+                </button>
+                <small>Interactive visualization · 15 MB</small>
+              </div>
+              <iframe title="Interactive RoboEXP low-level memory" data-src="media/interactive/output.html"
+                loading="lazy"></iframe>
+            </div>
+            <p>Geometry and semantic observations ground graph reasoning in the physical scene.</p>
+          </article>
+        </div>
+      </section>
+    </section>
+
+    <section class="chapter-card chapter-card--adapt" id="adaptation">
+      <div class="chapter-card__tab"><span>03</span> Adapt and Transfer</div>
+
+      <section class="project-section application-section" data-section="05 / Human Intervention">
+        <header class="project-section__header">
+          <h2>Update the memory when the world changes.</h2>
+          <p>RoboEXP detects new or moved objects, identifies the affected region, and selectively re-explores it.</p>
+        </header>
+
+        <div class="application-grid">
+          <article class="application-block">
+            <h3>Introducing a new cabinet</h3>
+            <div class="application-media">
+              <video class="lazy-video" muted loop playsinline preload="none" controls data-autoplay
+                data-src="media/videos/final_video_intervention_2.mp4"
+                aria-label="A cabinet is introduced during exploration"></video>
+              <p><span>01</span> Detect the new structure and extend the scene graph.</p>
+            </div>
+          </article>
+
+          <article class="application-block">
+            <h3>Moving objects between doors</h3>
+            <div class="application-media">
+              <video class="lazy-video" muted loop playsinline preload="none" controls data-autoplay
+                data-src="media/videos/final_video_intervention_1.mp4"
+                aria-label="Objects are moved during exploration"></video>
+              <p><span>02</span> Track the change and re-explore only where needed.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="project-section application-section" data-section="06 / Mobile Embodiment">
+        <header class="project-section__header">
+          <h2>The same representation, now on the move.</h2>
+          <p>The interactive exploration pipeline transfers to a Stretch mobile manipulator for household scenarios.</p>
+        </header>
+
+        <div class="application-grid">
+          <article class="application-block">
+            <h3>Explore inside drawers</h3>
+            <div class="application-media">
+              <video class="lazy-video" muted loop playsinline preload="none" controls data-autoplay
+                data-src="media/videos/sg_stretch_drawer.mp4" aria-label="Stretch robot explores drawers"></video>
+              <p><span>01</span> Open articulated storage to discover what is inside.</p>
+            </div>
+          </article>
+
+          <article class="application-block">
+            <h3>Explore beneath cloth</h3>
+            <div class="application-media">
+              <video class="lazy-video" muted loop playsinline preload="none" controls data-autoplay
+                data-src="media/videos/sg_stretch_pick.mp4" aria-label="Stretch robot explores beneath cloth"></video>
+              <p><span>02</span> Interact with deformable objects to reveal hidden items.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="project-section diverse-section" data-section="07 / Diverse Settings">
+        <header class="project-section__header">
+          <h2>Generalize across layouts and object types.</h2>
+          <p>Zero-shot exploration with rigid, articulated, nested, occluded, and deformable objects.</p>
+        </header>
+
+        <figure class="instrument-figure instrument-figure--wide">
+          <div class="instrument-figure__topbar">
+            <span>Evaluation reel / diverse settings</span>
+            <span>Zero-shot</span>
+          </div>
+          <video class="lazy-video" muted loop playsinline preload="none" controls data-autoplay
+            data-src="media/videos/other_results.mp4" aria-label="RoboEXP results in diverse real-world settings"></video>
+        </figure>
+      </section>
+    </section>
+
+    <section class="closing-card" id="video">
+      <section class="project-section video-section" data-section="08 / Paper Video">
+        <header class="project-section__header">
+          <h2>See the full system in action.</h2>
+          <p>From autonomous exploration to graph construction and downstream manipulation.</p>
+        </header>
+
         <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/qaSbggX_tXU" frameborder="0" allow="autoplay; encrypted-media"
+          <iframe src="https://www.youtube-nocookie.com/embed/qaSbggX_tXU" title="RoboEXP paper video"
+            loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
         </div>
-      </div>
-    </div>
+      </section>
 
-  </section>
-
-  <section class="section" style="position: relative; top: -100px">
-    <div class="container is-max-widescreen">
-
-      <div class="rows">
-
-
-        <!-- Animation. -->
-        <div class="rows is-centered ">
-          <div class="row is-full-width">
-            <h2 class="title is-3"><span class="dperact">Interactive Exploration</span></h2>
-
-            <div class="column has-text-centered"><video id="sg" autoplay muted loop preload
-                style="position: relative; top: 0px" height="80%" width="80%">
-                <source src="media/videos/sg_final.mp4" type="video/mp4">
-            </div>
-
-            <div class="column has-text-centered">
-              <iframe id="interactive-html-1" src="media/interactive/output.html" width=1000pt height=400pt
-                frameborder="0"></iframe>
-              <p style="text-align:center;">
-                Low-level Memory
-              </p>
-            </div>
-
-            </br>
-            </br>
-            <p class="content has-text-justified">
-              We formulate <b>interactive exploration</b> as an <b>action-conditioned 3D scene graph (ACSG)</b>
-              construction and traversal problem.
-              Our ACSG is an actionable, spatial-topological representation that models objects and their interactive
-              and spatial relations in a scene, capturing both the high-level graph <b>(c)</b> and corresponding
-              low-level memory <b>(b)</b>.
-            </p>
-
-            </br>
-            </br>
-
-            <h2 class="title is-3"><span class="dperact">RoboEXP</span></h2>
-
-            <!-- Interpolating. -->
-            <div class="content has-text-justified">
-              <!-- <br> -->
-            </div>
-            <div style="text-align: center;">
-              <img src="media/figures/pipeline.png" class="interpolation-image" width="80%" height="80%" />
-            </div>
-            </br>
-            </br>
-            <p class="content has-text-justified">
-              Our RoboEXP system comprises four modules. With RGB-D observations as input, our perception module
-              <b>(a)</b> and memory module <b>(b)</b> construct our ACSG leveraging the vision foundation models and our
-              explicit memory design. The ACSG is then utilized by the decision-making module <b>(c)</b> to generate
-              exploration plans, and the action module <b>(d)</b> executes them.
-            </p>
+      <section class="project-section citation-section" id="bibtex" data-section="09 / Citation">
+        <header class="project-section__header project-section__header--inline">
+          <div>
+            <h2>BibTeX</h2>
+            <p>If RoboEXP supports your research, please cite the CoRL 2024 paper.</p>
           </div>
-        </div>
-  </section>
+          <button class="copy-button" type="button" data-copy-bibtex>Copy citation</button>
+        </header>
 
+        <pre><code id="bibtex-code">@inproceedings{jiang2024roboexp,
+  title     = {RoboEXP: Action-Conditioned Scene Graph via Interactive Exploration for Robotic Manipulation},
+  author    = {Jiang, Hanxiao and Huang, Binghao and Wu, Ruihai and Li, Zhuoran and Garg, Shubham and Nayyeri, Hooshang and Wang, Shenlong and Li, Yunzhu},
+  booktitle = {Conference on Robot Learning (CoRL)},
+  year      = {2024}
+}</code></pre>
+      </section>
+    </section>
+  </main>
 
-  <section class="section">
-    <div class="container is-max-widescreen" style="position: relative; top: -100px">
-
-      <div class="rows">
-        <h2 class="title is-3">Exploration with Human Interventions</h2>
-
-        <p class="content has-text-justified">
-          Our RoboEXP system is capable of handling human interventions during the exploration process. Our system can
-          automatically detect new objects and explore them when necessary. Additionally, our system can also track hand
-          position to identify the areas that need to be reexplored.
-        </p>
-
-        <div class="columns">
-          <div class="column has-text-centered">
-            <video id="dist1" controls muted autoplay loop width="99%">
-              <source src="media/videos/final_video_intervention_2.mp4" type="video/mp4">
-            </video>
-            <p style="text-align:center">
-              Intervention: A person positions a cabinet on the table.
-            </p>
-          </div>
-
-          <div class="column has-text-centered">
-            <video id="dist2" controls muted autoplay loop width="99%">
-              <source src="media/videos/final_video_intervention_1.mp4" type="video/mp4">
-            </video>
-            Intervention: A person takes the orange out of the left door and places a coke in the right door.
-          </div>
-        </div>
-      </div>
-  </section>
-
-  <section class="section">
-    <div class="container is-max-widescreen" style="position: relative; top: -100px">
-
-      <div class="rows">
-        <h2 class="title is-3">Extension to Mobile Robot</h2>
-
-        <p class="content has-text-justified">
-          Our interactive exploration pipeline can be deployed on the Stretch robot for household scenarios.
-        </p>
-
-        <div class="columns">
-          <div class="column has-text-centered">
-            <video id="dist1" controls muted autoplay loop width="99%">
-              <source src="media/videos/sg_stretch_drawer.mp4" type="video/mp4">
-            </video>
-            <p style="text-align:center">
-              A mobile robot explores the drawers to see what's inside them.
-            </p>
-          </div>
-
-          <div class="column has-text-centered">
-            <video id="dist2" controls muted autoplay loop width="99%">
-              <source src="media/videos/sg_stretch_pick.mp4" type="video/mp4">
-            </video>
-            A mobile robot explores the cloth to see what's underneath.
-          </div>
-        </div>
-      </div>
-  </section>
-
-  <section class="section">
-    <div class="container is-max-widescreen" style="position: relative; top: -100px">
-
-      <div class="rows">
-        <h2 class="title is-3">More Results with Diverse Settings</h2>
-        <p class="content has-text-justified">
-        <p class="content has-text-justified">
-          We display more results with varied numbers of objects, types, and layouts in our experimental settings.
-        </p>
-        </p>
-        <div class="columns is-vcentered  is-centered">
-          <video id="other_results" autoplay muted loop style="position: relative; top: 30px" height="98%" width="98%">
-            <source src="media/videos/other_results.mp4" type="video/mp4">
-        </div>
-      </div>
-  </section>
-
-
-  <section class="section" id="BibTeX" style="position: relative; top: -40px">
-    <div class="container is-max-widescreen content">
-      <h2 class="title">BibTeX</h2>
-      <pre><code>@article{jiang2024roboexp,
-      title={RoboEXP: Action-Conditioned Scene Graph via Interactive Exploration for Robotic Manipulation},
-      author={Jiang, Hanxiao and Huang, Binghao and Wu, Ruihai and Li, Zhuoran and Garg, Shubham and Nayyeri, Hooshang and Wang, Shenlong and Li, Yunzhu},
-      booktitle={CoRL},
-      year={2024}
-    }</code></pre>
-    </div>
-  </section>
-
-
-  <footer class="footer">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column">
-          <div class="content has-text-centered">
-            <p>
-              Send feedback and questions to <a href="hj34@illinois.edu">Hanxiao Jiang</a>. Website template borrowed
-              from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a>, <a
-                href="https://peract.github.io/">PerAct</a> and <a href="https://voxposer.github.io/">VoxPoser</a>.
-            </p>
-          </div>
-        </div>
-      </div>
+  <footer class="project-footer">
+    <div>
+      <a href="https://jianghanxiao.github.io/">Hanxiao Jiang</a>
+      <span>RoboEXP · CoRL 2024</span>
     </div>
   </footer>
 
-
+  <noscript>
+    <div class="noscript-message">Enable JavaScript to load experiment videos and the interactive 3D graph.</div>
+  </noscript>
 </body>
 
 </html>
